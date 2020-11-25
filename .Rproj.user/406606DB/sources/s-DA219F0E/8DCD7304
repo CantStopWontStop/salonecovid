@@ -1,0 +1,32 @@
+{
+    "id": "8DCD7304",
+    "path": null,
+    "project_path": null,
+    "type": "r_dataframe",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1606277798576.0,
+    "source_on_save": false,
+    "relative_order": 5,
+    "properties": {
+        "expression": "cbsaPopRaw",
+        "caption": "cbsaPopRaw",
+        "totalObservations": "2797",
+        "displayedObservations": "2797",
+        "variables": "97",
+        "cacheKey": "FE13F6BB",
+        "object": "cbsaPopRaw",
+        "environment": "",
+        "contentUrl": "grid_resource/gridviewer.html?env=&obj=cbsaPopRaw&cache_key=FE13F6BB&max_cols=50",
+        "preview": "0"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 3196748900899303728,
+    "encoding": "",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1606277798576,
+    "read_only": false,
+    "read_only_alternatives": []
+}

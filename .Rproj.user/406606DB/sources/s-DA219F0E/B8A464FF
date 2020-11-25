@@ -1,0 +1,32 @@
+{
+    "id": "B8A464FF",
+    "path": null,
+    "project_path": null,
+    "type": "r_dataframe",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1606285216124.0,
+    "source_on_save": false,
+    "relative_order": 7,
+    "properties": {
+        "expression": "citiesList",
+        "caption": "citiesList",
+        "totalObservations": "119",
+        "displayedObservations": "119",
+        "variables": "97",
+        "cacheKey": "A5076A39",
+        "object": "citiesList",
+        "environment": "",
+        "contentUrl": "grid_resource/gridviewer.html?env=&obj=citiesList&cache_key=A5076A39&max_cols=50",
+        "preview": "0"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 4441704230,
+    "encoding": "",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1606285216124,
+    "read_only": false,
+    "read_only_alternatives": []
+}
