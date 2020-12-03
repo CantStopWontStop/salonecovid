@@ -1,0 +1,95 @@
+library(leaflet)
+library(rgdal)
+lib
+# get covid data
+cbsaPopRaw<- read_csv("https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/metro/totals/cbsa-est2019-alldata.csv") 
+
+cities <- c('New York-Newark-Jersey City, NY-NJ-PA','Dallas-Fort Worth-Arlington, TX','Houston-The Woodlands-Sugar Land, TX','Washington-Arlington-Alexandria, DC-VA-MD-WV','Philadelphia-Camden-Wilmington, PA-NJ-DE-MD','Atlanta-Sandy Springs-Alpharetta, GA','Charlotte-Concord-Gastonia, NC-SC'
+)
+
+cbsaPop <- cbsaPopRaw %>% 
+  filter(NAME %in% cities) %>% 
+  mutate(Population = POPESTIMATE2019)%>% 
+  select(CBSA,NAME,Population,STCOU) %>% 
+  arrange(desc(Population))
+
+
+cbsaCaseRaw <- read_csv('https://usafactsstatic.blob.core.windows.net/public/data/covid-19/covid_confirmed_usafacts.csv')
+
+codes <- cbsaPop$CBSA
+
+
+counties <- cbsaPopRaw %>% 
+  filter(CBSA %in% codes) %>% 
+  filter( !is.na(STCOU)) %>% 
+  mutate(Population = POPESTIMATE2019)%>% 
+  select(CBSA, STCOU,NAME,Population) %>% 
+  left_join(cbsaPop, by = c("CBSA"='CBSA')) %>% 
+  mutate(FIPS = as.numeric(STCOU.x))
+
+
+
+cbsaCase <- counties %>% 
+  left_join(cbsaCaseRaw, by =c("FIPS"="countyFIPS")) %>% 
+  gather(-c(1:11),key ='Date', value = "Cases") %>% 
+  group_by(CBSA, NAME.y, Date) %>% 
+  summarise(sum(Population.x), sum(Cases)) 
+
+library(leaflet)
+saloneMapData <- read_csv('saloneMapData.csv')
+
+m <- leaflet(saloneMapData) %>% 
+  addTiles() %>%  # Add default OpenStreetMap map tiles
+  addMarkers(~Longitude, ~Latitude, label = ~Cases)
+
+m
+
+salonePoly <- readOGR('https://raw.githubusercontent.com/skokenes/sierra-leone-district-geojson/master/SLE_adm2.json')
+
+pal <- colorQuantile("Greens",saloneMapData$Cases)
+
+leaflet(salonePoly) %>% 
+  addProviderTiles('CartoDB.Positron')  %>%
+  setView(-11.79931640625, 8.504970203442133, zoom = 8) %>% 
+  addLabelOnlyMarkers(
+    data = saloneMapData, ~Longitude, ~Latitude, 
+    label =~saloneMapData$`Map Label`, 
+    clusterOptions = markerClusterOptions(iconCreateFunction=JS("function (cluster) {    
+    var childCount = cluster.getChildCount();  
+    if (childCount < 100) {  
+      c = 'rgba(196,64,64, 1.0);'
+    } else if (childCount < 1000) {  
+      c = 'rgba(240, 194, 12, 1);'  
+    } else { 
+      c = 'rgba(241, 128, 23, 1);'  
+    }    
+    return new L.DivIcon({ html: '<div style=\"background-color:'+c+'\"><span>' + childCount + '</span></div>', className: 'marker-cluster', iconSize: new L.Point(40, 40) });
+
+  }")),
+    labelOptions = labelOptions(
+      noHide = T, 
+      direction = 'auto',
+      style = list(
+        "color" = "black",
+        "font-family" = "arial",
+        "box-shadow" = "2px 2px rgba(0,0,0,0.25)",
+        "font-size" = "12px",
+        "border-color" = "rgba(0,0,0,0.5)"
+        )
+      )
+    ) %>% 
+  addPolygons( weight = .8,  color = "#5c636b" ,fill = FALSE, stroke = TRUE, smoothFactor = 0.8) 
+
+
+
+leaflet(salonePoly) %>% 
+  addTiles()  %>%
+  setView(-11.79931640625, 8.504970203442133, zoom = 8) %>% 
+  addLabelOnlyMarkers(data = saloneMapData, ~Longitude, ~Latitude, label =~salonePoly$ID_2, labelOptions = labelOptions(noHide = T)) %>% 
+  addPolygons(fillColor = ~saloneMapData$Cases,weight = 1,  color = "#000000" ,stroke = TRUE, smoothFactor = 0.8) 
+
+
+leaflet(salonePoly) %>% 
+  addTiles()  %>%
+  addLabelOnlyMarkers( ~Longitude, ~Latitude, label = ~Cases)
+  addPolygons(fillColor = saloneMapData$Population, stroke = TRUE, smoothFactor = 0.3, fillOpacity = .51) 
