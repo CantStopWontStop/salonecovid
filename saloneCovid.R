@@ -9,7 +9,8 @@ library(shinydashboard)
 library(lubridate)
 library(ggthemes)
 library(extrafont)
-
+library(maps)
+library()
 #font_import()
 
 
@@ -36,16 +37,20 @@ counties <- cbsaPopRaw %>%
   mutate(Population = POPESTIMATE2019)%>% 
   select(CBSA, STCOU,NAME,Population) %>% 
   left_join(cbsaPop, by = c("CBSA"='CBSA')) %>% 
-  mutate(FIPS = as.numeric(STCOU.x))
+  mutate(FIPS = as.numeric(STCOU.x))%>% 
+  rename(County=NAME.x,'County Pop'= Population.x, City = NAME.y,"City Pop"=Population.y) %>% 
+  select(-STCOU.y)
+
 
 
 
 cbsaCase <- counties %>% 
   left_join(cbsaCaseRaw, by =c("FIPS"="countyFIPS")) %>% 
-  gather(-c(1:11),key ='Date', value = "Cases") %>% 
-  group_by(CBSA, NAME.y, Date) %>% 
-  summarise(Population = sum(Population.x), "Cases" = sum(Cases)) %>% 
-  mutate(Date =mdy(Date))
+  gather(-c(1:10),key ='Date', value = "Cases") %>% 
+  group_by(CBSA, City, Date) %>% 
+  mutate(Date =mdy(Date)) 
+
+leaflet(cbsaCase)
 
 cbsa <- reactive({
   c <- cbsaCase[cbsaCase$CBSA == input$cbsaCode, ]
