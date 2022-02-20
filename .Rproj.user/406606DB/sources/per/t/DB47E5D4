@@ -1,0 +1,26 @@
+{
+    "id": "DB47E5D4",
+    "path": "~/Documents/Projects/saloneHealthViz/worldVax.R",
+    "project_path": null,
+    "type": "r_source",
+    "hash": "985966023",
+    "contents": "",
+    "dirty": true,
+    "created": 1625792646316.0,
+    "source_on_save": false,
+    "relative_order": 8,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "126,12",
+        "scrollLine": "107"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1623300966,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1626713248337,
+    "read_only": false,
+    "read_only_alternatives": []
+}

@@ -1,0 +1,32 @@
+{
+    "id": "64CE0E96",
+    "path": null,
+    "project_path": null,
+    "type": "r_dataframe",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1607305521166.0,
+    "source_on_save": false,
+    "relative_order": 9,
+    "properties": {
+        "expression": "cases",
+        "caption": "cases",
+        "totalObservations": "250",
+        "displayedObservations": "250",
+        "variables": "9",
+        "cacheKey": "28C5A881",
+        "object": "cases",
+        "environment": "",
+        "contentUrl": "grid_resource/gridviewer.html?env=&obj=cases&cache_key=28C5A881&max_cols=50",
+        "preview": "0"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 4697598786979181625,
+    "encoding": "",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1607305521166,
+    "read_only": false,
+    "read_only_alternatives": []
+}

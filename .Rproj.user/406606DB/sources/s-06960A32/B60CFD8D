@@ -1,0 +1,32 @@
+{
+    "id": "B60CFD8D",
+    "path": null,
+    "project_path": null,
+    "type": "r_dataframe",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1607128714955.0,
+    "source_on_save": false,
+    "relative_order": 6,
+    "properties": {
+        "expression": "salone",
+        "caption": "salone",
+        "totalObservations": 246,
+        "displayedObservations": 246,
+        "variables": 9,
+        "cacheKey": "5DB35EA1",
+        "object": "salone",
+        "environment": "",
+        "contentUrl": "grid_resource/gridviewer.html?env=&obj=salone&cache_key=5DB35EA1&max_cols=50",
+        "preview": 0
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1607128175,
+    "encoding": "",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1607128714955,
+    "read_only": false,
+    "read_only_alternatives": []
+}

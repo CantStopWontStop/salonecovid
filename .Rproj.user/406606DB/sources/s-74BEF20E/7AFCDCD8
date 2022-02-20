@@ -1,0 +1,33 @@
+{
+    "id": "7AFCDCD8",
+    "path": null,
+    "project_path": null,
+    "type": "r_dataframe",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1607830090339.0,
+    "source_on_save": false,
+    "relative_order": 14,
+    "properties": {
+        "expression": "cbsaDeathsRaw",
+        "caption": "cbsaDeathsRaw",
+        "totalObservations": 3195,
+        "displayedObservations": 3195,
+        "variables": 329,
+        "cacheKey": "43829D06",
+        "object": "cbsaDeathsRaw",
+        "environment": "",
+        "contentUrl": "grid_resource/gridviewer.html?env=&obj=cbsaDeathsRaw&cache_key=43829D06&max_cols=50",
+        "preview": 0,
+        "Source": "Source"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 140353928187624,
+    "encoding": "",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1607830090339,
+    "read_only": false,
+    "read_only_alternatives": []
+}

@@ -1,0 +1,14 @@
+name: salone_against_covid
+title:
+username:
+account: afromation
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 3314153
+bundleId: 4794122
+url: https://salonehealth.shinyapps.io/salone_against_covid/
+when: 1625624216.13981
+lastSyncTime: 1625624216.13983
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: cbsa.R|Icon|Rplot.png|Rplot01.png|Rplot02.png|Rplot03.png|Rplot04.png|Rplot05.png|Rplot06.png|Rplot07.png|saloneAgainstCovid.R|saloneCovid.R|saloneMap.R|shinyConnect.R|tests/shinytest.R|www/mytheme.css|www/projects.css

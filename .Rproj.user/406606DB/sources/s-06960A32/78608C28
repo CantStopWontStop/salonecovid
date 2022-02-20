@@ -1,0 +1,32 @@
+{
+    "id": "78608C28",
+    "path": null,
+    "project_path": null,
+    "type": "r_dataframe",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1607576102558.0,
+    "source_on_save": false,
+    "relative_order": 11,
+    "properties": {
+        "expression": "cbsaPop",
+        "caption": "cbsaPop",
+        "totalObservations": 8,
+        "displayedObservations": 8,
+        "variables": 4,
+        "cacheKey": "0BCBC652",
+        "object": "cbsaPop",
+        "environment": "",
+        "contentUrl": "grid_resource/gridviewer.html?env=&obj=cbsaPop&cache_key=0BCBC652&max_cols=50",
+        "preview": 0
+    },
+    "folds": "",
+    "lastKnownWriteTime": 0,
+    "encoding": "",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1607576102558,
+    "read_only": false,
+    "read_only_alternatives": []
+}

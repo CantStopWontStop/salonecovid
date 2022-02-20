@@ -1,0 +1,32 @@
+{
+    "id": "112C5F15",
+    "path": null,
+    "project_path": null,
+    "type": "r_dataframe",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1606968014089.0,
+    "source_on_save": false,
+    "relative_order": 4,
+    "properties": {
+        "expression": "cbsaCase",
+        "caption": "cbsaCase",
+        "totalObservations": "46368",
+        "displayedObservations": "46368",
+        "variables": "12",
+        "cacheKey": "2CCE4C26",
+        "object": "cbsaCase",
+        "environment": "",
+        "contentUrl": "grid_resource/gridviewer.html?env=&obj=cbsaCase&cache_key=2CCE4C26&max_cols=50",
+        "preview": "0"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 140357370291544,
+    "encoding": "",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1606968014089,
+    "read_only": false,
+    "read_only_alternatives": []
+}

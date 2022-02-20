@@ -1,0 +1,32 @@
+{
+    "id": "D3CA8E4B",
+    "path": null,
+    "project_path": null,
+    "type": "r_dataframe",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1607830084690.0,
+    "source_on_save": false,
+    "relative_order": 13,
+    "properties": {
+        "expression": "cbsaCaseRaw",
+        "caption": "cbsaCaseRaw",
+        "totalObservations": 3195,
+        "displayedObservations": 3195,
+        "variables": 326,
+        "cacheKey": "35E99ACD",
+        "object": "cbsaCaseRaw",
+        "environment": "",
+        "contentUrl": "grid_resource/gridviewer.html?env=&obj=cbsaCaseRaw&cache_key=35E99ACD&max_cols=50",
+        "preview": 0
+    },
+    "folds": "",
+    "lastKnownWriteTime": 4918846932048491827,
+    "encoding": "",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1607830084690,
+    "read_only": false,
+    "read_only_alternatives": []
+}

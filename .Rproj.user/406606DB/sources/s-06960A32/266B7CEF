@@ -1,0 +1,32 @@
+{
+    "id": "266B7CEF",
+    "path": null,
+    "project_path": null,
+    "type": "r_dataframe",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1607600370355.0,
+    "source_on_save": false,
+    "relative_order": 12,
+    "properties": {
+        "expression": "newCases",
+        "caption": "newCases",
+        "totalObservations": "2254",
+        "displayedObservations": "2254",
+        "variables": "5",
+        "cacheKey": "5716CB6F",
+        "object": "newCases",
+        "environment": "",
+        "contentUrl": "grid_resource/gridviewer.html?env=&obj=newCases&cache_key=5716CB6F&max_cols=50",
+        "preview": "0"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 3256436976205836338,
+    "encoding": "",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1607600370355,
+    "read_only": false,
+    "read_only_alternatives": []
+}

@@ -1,0 +1,370 @@
+
+display.brewer.all()
+
+
+worldVaxData <- vaxData %>%
+  select(iso_code,
+         continent,
+         location,
+         date,
+         total_vaccinations,
+         total_vaccinations_per_hundred,
+         people_vaccinated_per_hundred,
+         people_fully_vaccinated_per_hundred) %>%
+  #filter(continent == "Africa") %>%
+  tibble
+
+contVaxData <- worldVaxData %>% 
+  filter(str_detect(iso_code, "^OWID")) %>% 
+  mutate(continent = location) %>% 
+  group_by(iso_code, location, continent) %>%
+  summarise(fully_vacc = max(people_fully_vaccinated_per_hundred,  na.rm = T), total_vacc =max(total_vaccinations,na.rm = T)) %>%
+  ungroup() %>% 
+  mutate(fully_vacc = ifelse(fully_vacc < 0,0, fully_vacc)) %>% 
+  mutate(total_vacc = ifelse(total_vacc < 0,0, total_vacc)) %>% 
+  filter(continent != "Kosovo", 
+         continent != "World", 
+         continent != "International",
+         continent != "Northern Cyprus",
+         continent != "European Union") 
+
+worldVax <- worldVaxData %>%
+  group_by(iso_code, continent, location) %>%
+  summarise(  fully_vacc = max(people_fully_vaccinated_per_hundred,  na.rm = T), total_vacc =max(total_vaccinations,na.rm = T)) %>%
+  ungroup() %>% 
+  mutate(fully_vacc = ifelse(fully_vacc < 0,0, fully_vacc)) %>% 
+  mutate(total_vacc = ifelse(total_vacc < 0,0, total_vacc)) 
+
+world <- bind_rows(worldVax, contVaxData)
+
+
+world  <- world %>%
+  drop_na() %>% 
+  mutate(continent = factor(continent, 
+                     levels = c("South America", 
+                                "North America",
+                                "Oceania", 
+                                "Europe",
+                                "Asia",
+                                "Africa")
+                     )
+  ) %>% 
+  filter(location != "Northern Cyprus", location != "Kosovo") %>% 
+  mutate(iso_code = if_else(str_detect(iso_code, "^OWID"),"continent", iso_code))
+  
+
+worldAvg <- worldVaxData %>% 
+  filter(location == "World") %>%
+  unlist() %>%
+  .[4] %>% 
+  as.numeric()
+  
+afriAvg <- worldVaxData %>% 
+  filter(location == "Africa") %>%
+  unlist() %>%
+  .[4] %>% 
+  as.numeric()
+
+euroAvg <- worldVaxData %>% 
+  filter(location == "Europe") %>%
+  unlist() %>%
+  .[4] %>% 
+  as.numeric()
+
+
+
+
+worldVaxPlot <- ggplot(worldVAX, aes(x = fully_vacc, y =  continent, colour = continent))+
+  geom_point(aes(colour = continent), alpha = 0.44)+
+  # geom_jitter(size =  world$iso_code == "continent", alpha = 0.64, width = 0.2)+
+ # stat_summary(fun = mean, geom = "point", size = 5)+
+  scale_size_manual(values=c(1,5)) +
+  scale_color_brewer(palette = "Dark2")+
+
+  scale_x_continuous(
+    breaks = c(0,20,40,60,80,100,120)
+   # limits = c(0.0, 1.0)
+    )+
+ # scale_colour_manual(values=setNames(colours, ~au_region), guide = FALSE) +
+  ylab(NULL) +
+  xlab(NULL) +
+  #geom_text_repel(size = 3) +
+  geom_vline(aes(xintercept = worldAvg, linetype = factor(worldAvg)), colour = 'red') +
+  #geom_vline(aes(xintercept = afriAvg, linetype = factor(afriAvg)), colour = 'green') +
+ # geom_vline(aes(xintercept = euroAvg, linetype = factor(euroAvg)), colour = 'blue') +
+  # scale_linetype(name = "Limit") +
+  #  guides(guide_legend(override.aes = list(colour = "red"))) +
+  labs(
+    x = "Percent of Population Fully Vaccinated",
+    size = "Doses Administered",
+    title = "Percent of Pepole Fully Vaccinated by Country by Continent",
+    # linetype = "US Average",
+    #subtitle = vaxDate,
+    caption = "Data Source: Our World in Data;\n Visualization: Salone Health, Afromation"
+  ) +
+  #guides(colour=guide_legend(nrow=1)) +
+  theme_light() +
+  theme(
+    #Adjust gridlines   
+    panel.grid = element_blank(),
+    legend.position = "none",
+    axis.title = element_text(family = "Roboto Mono",size = 12, margin=margin(30,0,10,0)),
+    axis.text = element_text(family = "Roboto Mono", size = 12),
+    # axis.line.x = element_blank(),
+    # axis.title.x = element_text(size = 12,  colour = "black", margin=margin(15,0,0,0)),
+    #Adjust legend
+    legend.text = element_text(size = 12),
+    legend.title = element_text(colour = "black"),
+     legend.position = "top",
+    # legend.direction = "horizontal",
+    #  legend.box = "vertical",
+    plot.title = element_text(hjust=0.5, vjust = 2, family = "Roboto Mono", margin=margin(10,0,10,0)),
+    # plot.subtitle =  element_text(size = 14, hjust=0.5, colour = "black",  margin=margin(10,0,20,0)),  plot.caption =  element_text(size = 10, face = "italic", margin=margin(15,0,0,0)),
+    #plot.margin = unit(c(1, 1,1, 1), "lines"),
+    plot.caption = element_text(size = 9, color = "gray50")
+  )
+
+worldVaxPlot
+
+
+v# Set up ----
+
+
+
+## Data manipulation
+
+library(tidyverse)
+
+
+
+## Importing/exporting data
+
+library(rio)
+
+
+
+## Formatting ggplot theme
+
+library(showtext)
+
+library(ggsci)
+
+
+
+font_add_google("Nunito Sans", "Nunito Sans")
+
+font_add_google("Roboto Mono", "Roboto Mono")
+
+showtext_auto()
+
+
+
+theme_set(theme_light(base_size = 18, base_family = "Nunito Sans"))
+
+
+
+
+
+# Get data ----
+
+
+
+vaccination_data_raw <- import("https://covid.ourworldindata.org/data/owid-covid-data.csv")
+
+
+
+
+
+# Manipulate data ----
+
+
+
+vaccination_tbl <-  vaccination_data_raw %>%
+  
+  
+  
+  ## Select desired columns
+  
+  select(iso_code,
+         
+         continent,
+         
+         location,
+         
+         date,
+         
+         people_fully_vaccinated_per_hundred,
+         
+         total_vaccinations) %>%
+  
+  
+  
+  ## Remove rows that don't have data for percent of people fully vaccinated
+  
+  drop_na(people_fully_vaccinated_per_hundred) %>%
+  
+  
+  
+  ## Filter out rows to only select the row for each country with the most up-to-date vaccination information
+  
+  group_by(location) %>%
+  
+  mutate(max_date = max(date)) %>%
+  
+  filter(max_date == date)
+
+
+
+
+
+# Get tables and values to be plotted ----
+
+
+
+## World_vaccination rate for vertical line
+
+world_vaccination <- vaccination_tbl %>%
+  
+  filter(location == "World") %>%
+  
+  pull(people_fully_vaccinated_per_hundred)
+
+
+
+## Continent table
+
+continent_vaccination_tbl <- vaccination_tbl %>%
+  
+  ### Get rows for just the continents
+  
+  filter(continent == "" & location != "European Union", location !="World",location !="International") %>%
+  
+  
+  
+  ### Renaming the location column
+  
+  select(-continent) %>%
+  
+  rename(continent = location)
+
+
+
+## COuntry table
+
+country_vaccination_tbl <- vaccination_tbl %>%
+  
+  filter(continent != "")
+
+
+
+
+
+# Plot data ----
+
+country_vaccination_tbl %>%
+  
+  
+  
+  ## Base Layer - Initializing and mapping data to the plot
+  
+  ggplot(aes(x = people_fully_vaccinated_per_hundred, y = continent, color = continent)) +
+  
+  
+  
+  ## Layer 1 - Country points
+  
+  geom_point(data = continent_vaccination_tbl,
+             
+             aes(x = people_fully_vaccinated_per_hundred,
+                 
+                 y = continent),
+             
+             size = 6,
+             
+             # alpha= .8
+             
+  ) +
+  
+  
+  
+  ##  Layer 2 - COntinent points
+  
+  geom_jitter(size = 3,  height = .3, alpha= .25) +
+  
+  
+  
+  #  stat_summary(fun = mean, geom = "point", size = 6) +
+  
+  
+  
+  ## Layer 3 - World Vaccination rate line
+  
+  geom_vline(aes(xintercept = world_vaccination), color = "gray70", linetype = "dashed")+
+  
+  
+  
+  
+  
+  ## Layer 4 - Lines from continent points to World Rate line
+  
+  geom_segment(data = continent_vaccination_tbl,
+               
+               aes(y = continent, yend = continent,
+                   
+                   x = world_vaccination, xend = people_fully_vaccinated_per_hundred),
+               
+               size = 0.8
+               
+  ) +
+  
+  
+  
+  ## Color theme
+  
+  
+  
+  #   scale_color_simpsons()+
+  
+  scale_color_brewer(palette="Dark2") +
+  
+  
+  
+  
+  
+  ## Layer 5 - Labels
+  
+  labs(
+    
+    x = "Percent of Population Fully Vaccinated",
+    
+    size = "Doses Administered",
+    
+    title = "Percent of Pepole Fully Vaccinated by Continent",
+    
+    # linetype = "US Average",
+    
+    #subtitle = vaxDate,
+    
+    caption = "Data Source: Our World in Data"
+    
+  ) +
+  
+  
+  
+  ## Plot theme
+  
+  theme(
+    
+    legend.position = "none",
+    
+    axis.title = element_text(size = 16),
+    
+    axis.text.x = element_text(family = "Nunito Sans", size = 12),
+    
+    panel.grid = element_blank(),
+    
+    axis.title.y = element_blank()
+    
+  )
+
+
